@@ -197,6 +197,35 @@ Sent immediately when a threshold is breached or hardware fails.
 }
 ```
 
+### Event Reference
+
+#### Payload Types (`type`)
+| Type | Direction | Description |
+| :--- | :--- | :--- |
+| `_ack` | Device -> Server | Verification of current state/config. |
+| `_sensor_data` | Device -> Server | Periodic readings (Temp, Hum, Voltage, Current, etc). |
+| `_config_update` | Server -> Device | New settings for sensors or system. |
+| `_alert` | Device -> Server | Priority notification of a threshold breach. |
+| `_command` | Server -> Device | Instruction to perform an action (e.g., toggle relay). |
+| `_error` | Device -> Server | Hardware malfunction report. |
+
+#### Alert Types (`alert_type`)
+Used in `_alert` payloads to specify the event.
+*   **Environment**: `high_temperature`, `low_temperature`
+*   **Security**: `motion_detected`
+*   **Safety**: `gas_detected`
+*   **Power**: `high_voltage`, `low_voltage`, `high_current`
+*   **State**: `light_on`, `light_off`
+
+#### Error Types (`error_type`)
+Used in `_error` payloads to identify faulty hardware.
+*   `dht_read_failure`
+*   `pir_read_failure`
+*   `mq_read_failure`
+*   `light_read_failure`
+*   `zmpt_read_failure`
+*   `acs_read_failure`
+
 ---
 
 ## 5. Module Breakdown (Backend Architecture)
